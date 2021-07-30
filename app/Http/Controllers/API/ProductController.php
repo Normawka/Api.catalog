@@ -31,6 +31,7 @@ class ProductController extends BaseController
     public function store(ProductStoreRequest $request)
     {
         $product = Product::create($request->validated());
+        $product->categories()->sync($request->input('category',[]));
         return  $this->sendResponse(new ProductResource($product), 'Успешно создан продукт.');
     }
 
@@ -60,6 +61,7 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, Product $product)
     {
         $product->update($request->validated());
+        $product->categories()->attach($request->input('category',[]));
         return  $this->sendResponse(new ProductResource($product),'Данные обновлены');
     }
 
