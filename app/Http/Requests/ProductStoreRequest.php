@@ -24,10 +24,25 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|max:255',
-             'price'=>'regex:/^\d+(\.\d{1,2})?$/',
-             'description'=>'max:255',
+            'name' => [
+                'required',
+                'max:255',
+            ],
+            'price' => [
+                'regex:/^\d+(\.\d{1,2})?$/',
+            ],
+            'description' => [
+                'max:255',
+            ],
 
+
+            'categories.*' => [
+                'integer',
+            ],
+            'categories' => [
+                'array',
+            ],
         ];
+
     }
 }
